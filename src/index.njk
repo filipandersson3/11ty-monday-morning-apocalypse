@@ -1,5 +1,41 @@
 ---
 layout: base.njk
-title: Hello World
+title: McDonald's® New Among Us Meal™ is here, containing one Impostor Burger™, our signature Fries, and Among Us Crewmate shaped McNuggets™, complete with some Sussy Sauce™. Get your Among Us meal™ at McDonald's®, or deliver McDonald's® using these delivery apps! For a limited time only at McDonald's®. I'm lovin' it™
+
+
 ---
 
+<img src="https://preview.redd.it/rkexwoy3zm771.png?auto=webp&s=6774b269eff5b685eb87d80f178b0bff279df8cf" alt="among us burger">
+
+{{ github | dump }}
+
+<h1>{{github.login}}</h1>
+<img src="{{ github.avatar_url }}" alt="{{ github.login }}">
+
+<h2>Repositories</h2>
+<div id="repos">
+    <button>Fetch</button>
+    <div class="spinner-border d-none" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script>
+    // https://api.github.com/users/filipandersson3/repos
+    const button = document.querySelector('#repos > button');
+    const spinner = document.querySelector('#repos > .spinner-border');
+    button.addEventListener('click', (e) => {
+        spinner.classList.toggle('d-none');
+        fetch('https://api.github.com/users/filipandersson3/repos')
+            .then(response => response.json())
+            .then(data => {
+                spinner.classList.toggle('d-none');
+                const repos = document.querySelector('#repos');
+                data.forEach(repo => {
+                    const p = document.createElement('p');
+                    p.textContent = repo.name;
+                    repos.appendChild(p);
+                });
+            });
+    });
+</script>
